@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eu
+
+node cmd/refresh-app.js > docs/dir.json

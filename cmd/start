@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eu
+
+node cmd/refresh-app.js > docs/dir.json
+npx elm-go src/Main.elm --port=5924 --dir=docs --start-page=index.html --pushstate --hot -- --output=docs/elm.js --debug
+# npx elm-go src/Main.elm --dir=docs --start-page=index.html --pushstate -- --output=docs/elm.js --debug

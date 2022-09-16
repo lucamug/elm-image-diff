@@ -1,0 +1,22 @@
+#!/bin/bash
+set -eu
+
+rm -rf build-ip
+mkdir build-ip
+node_modules/.bin/webpack
+
+
+# https://stackoverflow.com/questions/46082397/insert-newline-n-using-sed
+# https://stackoverflow.com/questions/9533679/how-to-insert-a-text-at-the-beginning-of-a-file
+
+{ echo -n '#!/usr/bin/env node
+
+'; cat build-ip/ip.js; } >build-ip/ip
+
+cp build-ip/ip ../54he49-private/cmd/ip
+
+echo "
+
+build-ip/ip is ready. Copied to ../54he49-private/cmd/ip
+
+"

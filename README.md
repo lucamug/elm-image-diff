@@ -1,1 +1,1 @@
-# elm-image-diff
+# 🦉 elm-image-diff 🦉

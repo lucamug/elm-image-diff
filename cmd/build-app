@@ -1,0 +1,24 @@
+#!/bin/bash
+set -eu
+
+rm -rf build-app
+
+mkdir build-app
+
+time npx elm make src/Main.elm --optimize --output=build-app/elm.js 
+time npx terser build-app/elm.js docs/pixelmatch.js docs/start.js --no-rename --compress 'pure_funcs="F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9",pure_getters=true,keep_fargs=false,unsafe_comps=true,unsafe=true,passes=2' --mangle --output=build-app/elm.js 
+
+node cmd/refresh-app.js > docs/dir.json
+
+cp    docs/index.html    build-app/200.html
+# cp    docs/robots.txt    build/
+# cp    docs/_redirects    build/
+# cp    docs/_redirects    build/
+# cp    docs/dir.json      build/
+# cp -r docs/screenshots   build/
+
+sed -i ".bak" '/dev-only/d' build-app/200.html
+rm build-app/200.html.bak
+
+cp build-app/200.html ../54he49-private/docs/200.html
+cp build-app/elm.js ../54he49-private/docs/elm.js
